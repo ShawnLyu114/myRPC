@@ -1,0 +1,30 @@
+syntax = "proto3"; //声明了protobuf的版本
+
+package fixbug; //声明代码所在的包（对于C++来说就是namespace）
+
+option cc_generic_services =true;
+
+message ResultCode
+{
+	int32 errcode=1;
+	bytes errmsg=2;
+}
+
+//定义登录请求的消息类型name pwd
+message LoginRequest
+{
+	bytes name=1;//
+	bytes pwd=2;
+}
+
+//定义登录响应消息类型
+message LoginResponse
+{
+	ResultCode result=1;
+	bool success=2;
+}
+
+service UserServiceRPC
+{
+	rpc Login(LoginRequest) returns(LoginResponse);
+}
